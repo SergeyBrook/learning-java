@@ -11,10 +11,11 @@ class App {
 
 	public App() {}
 
+	// Debug:
 	public void showAllBugs() {
 		int i = 0;
 		for (Bug bug : this.bugs) {
-			System.out.println("### Bug num: " + i + "###");
+			System.out.println("### Bug num: " + i + " ###");
 			System.out.println("### Bug description: " + bug.getDescription());
 			System.out.println("### Bug priority: " + bug.getPriority());
 			System.out.println("### Bug date: " + bug.getDateCreated());
@@ -29,8 +30,8 @@ class App {
 	public int createNewBug(String description, int priority, int severity) {
 		Bug bug = new Bug();
 
-		bug.setDescripton(description);
-		//bug.setPriority(priority);
+		bug.setDescription(description);
+		bug.setPriority(priority);
 		bug.setSeverity(severity);
 
 		this.bugs.add(bug);

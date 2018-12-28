@@ -55,8 +55,22 @@ class App {
 	}
 
 	// 3
-	public void closeAllBugs() {}
+	public void closeAllBugs() {
+		for (Bug bug : this.bugs) {
+			if (bug.getStateCode() == 0) {
+				bug.setState(1);
+			}
+			bug.setState(2);
+		}
+	}
 
 	// 4
-	public void closeAllTasks() {}
+	public void closeAllTasks() {
+		for (Task task : this.tasks) {
+			if (task.getStateCode() == 0) {
+				task.setState(1);
+			}
+			task.setState(2);
+		}
+	}
 }

@@ -44,7 +44,8 @@ class Item {
 
 	public boolean setState(int state) {
 		boolean result = false;
-		if (state >= 0 && state < this.states.length) {
+		//if (state >= 0 && state < this.states.length) {
+		if (state >= 0 && state <= 2) {
 			if (!(this.state == 0 && state == 2) && !(this.state == 1 && state == 0) && !(this.state == 2 && state == 0)) {
 				this.state = state;
 				result = true;
@@ -55,5 +56,9 @@ class Item {
 
 	public String getState() {
 		return this.states[this.state];
+	}
+
+	public int getStateCode() {
+		return this.state;
 	}
 }

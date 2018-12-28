@@ -26,7 +26,7 @@ class Data {
 		}
 	}
 
-	// 1.1
+	// 1 - Bug
 	public String createNewBug(String description, int priority, int severity) {
 		Bug bug = new Bug();
 
@@ -39,19 +39,78 @@ class Data {
 		return "B-" + (this.bugs.size() - 1);
 	}
 
-	// 1.2
+	// 1 - Task
 	public String createNewTask(String description, int priority, String dueDate) {
-		return "T-0";
+		Task task = new Task();
+
+		task.setDescription(description);
+		task.setPriority(priority);
+		task.setDueDate(dueDate);
+
+		this.tasks.add(task);
+
+		return "T-" + (this.tasks.size() - 1);
 	}
 
-	// 1.3
+	// 1 User story
 	public String createNewUserStory(String description, int priority, String sprintName) {
-		return "US-0";
+		UserStory userStory = new UserStory();
+
+		userStory.setDescription(description);
+		userStory.setPriority(priority);
+		userStory.setSprintName(sprintName);
+
+		this.userStories.add(userStory);
+
+		return "US-" + (this.userStories.size() - 1);
 	}
 
-	// 1.4
+	// 1 - Use case
 	public String createNewUseCase(String description, int priority, int userStory) {
-		return "UC-0";
+		UseCase useCase = new UseCase();
+
+		useCase.setDescription(description);
+		useCase.setPriority(priority);
+		useCase.addUserStory(userStory);
+
+		this.useCases.add(useCase);
+
+		return "UC-" + (this.useCases.size() - 1);
+	}
+
+	// 2
+	public boolean setItemState(String itemId, int state) {
+		boolean result = false;
+
+		// TODO: Check for valid input.
+		String[] idTokens = itemId.split("-");
+		int idx = Integer.parseInt(idTokens[1]);
+
+		if (idx >= 0) {
+			if (idTokens[0].equals("B")) {
+				// Bug:
+				if (idx < this.bugs.size()) {
+					result = this.bugs.get(idx).setState(state);
+				}
+			} else if (idTokens[0].equals("T")) {
+				// Task:
+				if (idx < this.tasks.size()) {
+					result = this.tasks.get(idx).setState(state);
+				}
+			} else if (idTokens[0].equals("US")) {
+				// User story:
+				if (idx < this.userStories.size()) {
+					result = this.userStories.get(idx).setState(state);
+				}
+			} else if (idTokens[0].equals("UC")) {
+				// Use case:
+				if (idx < this.useCases.size()) {
+					result = this.useCases.get(idx).setState(state);
+				}
+			}
+		}
+
+		return result;
 	}
 
 	// 3

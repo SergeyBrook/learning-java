@@ -11,7 +11,19 @@ class App {
 		/*data.createNewBug("Foo", 2, 3);
 		data.createNewBug("Boo", 4, 5);
 		data.showAllBugs();
-		data.closeAllBugs();
+
+		//data.closeAllBugs();
+
+		data.setItemState("B-0", 1);
+		data.setItemState("B-1", 2);
+		data.showAllBugs();
+
+		data.setItemState("B-0", 2);
+		data.setItemState("B-1", 1);
+		data.showAllBugs();
+
+		data.setItemState("B-0", 2);
+		data.setItemState("B-1", 2);
 		data.showAllBugs();*/
 		
 		Scanner input = new Scanner(System.in);
@@ -22,8 +34,13 @@ class App {
 
 			if (mainMenuItem == 1) {
 				// Create new item.
+				//String itemId = createNewBug(description, priority, severity);
+				//String itemId = createNewTask(description, priority, dueDate);
+				//String itemId = createNewUserStory(description, priority, sprintName);
+				//String itemId = createNewUseCase(description, priority, userStory);
 			} else if (mainMenuItem == 2) {
 				// Set item state.
+				//boolean isOk = data.setItemState(itemId, state);
 			} else if (mainMenuItem == 3) {
 				// Close all bugs.
 				data.closeAllBugs();

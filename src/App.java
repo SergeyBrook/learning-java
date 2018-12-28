@@ -1,76 +1,64 @@
-import java.util.*;
+import java.util.Scanner;
 
 /**
  * App class.
  */
 class App {
-	private List<Bug> bugs = new ArrayList<Bug>();
-	private List<Task> tasks = new ArrayList<Task>();
-	private List<UserStory> userStories = new ArrayList<UserStory>();
-	private List<UseCase> useCases = new ArrayList<UseCase>();
+	public static void main(String[] args) {
+		int mainMenuItem;
+		Data data = new Data();
+		
+		/*data.createNewBug("Foo", 2, 3);
+		data.createNewBug("Boo", 4, 5);
+		data.showAllBugs();
+		data.closeAllBugs();
+		data.showAllBugs();*/
+		
+		Scanner input = new Scanner(System.in);
 
-	public App() {}
+		while (true) {
+			App.printMainMenu();
+			mainMenuItem = input.nextInt();
 
-	// Debug:
-	public void showAllBugs() {
-		int i = 0;
-		for (Bug bug : this.bugs) {
-			System.out.println("### Bug num: " + i + " ###");
-			System.out.println("### Bug description: " + bug.getDescription());
-			System.out.println("### Bug priority: " + bug.getPriority());
-			System.out.println("### Bug date: " + bug.getDateCreated());
-			System.out.println("### Bug state: " + bug.getState());
-			System.out.println("### Bug severity: " + bug.getSeverity());
-			System.out.println();
-			i++;
-		}
-	}
-
-	// 1.1
-	public int createNewBug(String description, int priority, int severity) {
-		Bug bug = new Bug();
-
-		bug.setDescription(description);
-		bug.setPriority(priority);
-		bug.setSeverity(severity);
-
-		this.bugs.add(bug);
-
-		return 0;
-	}
-
-	// 1.2
-	public int createNewTask(String description, int priority, String dueDate) {
-		return 0;
-	}
-
-	// 1.3
-	public int createNewUserStory(String description, int priority, String sprintName) {
-		return 0;
-	}
-
-	// 1.4
-	public int createNewUseCase(String description, int priority, int userStory) {
-		return 0;
-	}
-
-	// 3
-	public void closeAllBugs() {
-		for (Bug bug : this.bugs) {
-			if (bug.getStateCode() == 0) {
-				bug.setState(1);
+			if (mainMenuItem == 1) {
+				// Create new item.
+			} else if (mainMenuItem == 2) {
+				// Set item state.
+			} else if (mainMenuItem == 3) {
+				// Close all bugs.
+				data.closeAllBugs();
+			} else if (mainMenuItem == 4) {
+				// Close all tasks.
+				data.closeAllTasks();
+			} else if (mainMenuItem == 5) {
+				// Link user story to use case.
+			} else if (mainMenuItem == 6) {
+				// Set new due date for task.
+			} else if (mainMenuItem == 7) {
+				// Print use case.
+			} else if (mainMenuItem == 8) {
+				// Set bug severity.
+			} else if (mainMenuItem == 9) {
+				// Change sprint.
+				// WTF?!
+			} else if (mainMenuItem == 10) {
+				// Exit.
+				break;
 			}
-			bug.setState(2);
 		}
 	}
 
-	// 4
-	public void closeAllTasks() {
-		for (Task task : this.tasks) {
-			if (task.getStateCode() == 0) {
-				task.setState(1);
-			}
-			task.setState(2);
-		}
+	public static void printMainMenu() {
+		System.out.println("[1] Create new item.");
+		System.out.println("[2] Set item state.");
+		System.out.println("[3] Close all bugs.");
+		System.out.println("[4] Close all tasks.");
+		System.out.println("[5] Link user story to use case.");
+		System.out.println("[6] Set new due date.");
+		System.out.println("[7] Print use case.");
+		System.out.println("[8] Set bug severity.");
+		System.out.println("[9] Change sprint.");
+		System.out.println("[10] Exit.");
+		System.out.print("> ");
 	}
 }

@@ -9,18 +9,29 @@ public class IssueTracker {
 
 	public static void main(String[] args) {
 		IssueTracker issueTracker = new IssueTracker();
-		//issueTracker.mainMenu();
-		issueTracker.debug();
+		issueTracker.mainMenu();
+		//issueTracker.debug();
 	}
 
 	private void debug() {
-		itemStore.createNewBug("Foo", 2, 3);
+		/*itemStore.createNewUserStory("User story one", 1, "Sprint one"); // US-0
+		itemStore.createNewUserStory("User story two", 1, "Sprint two"); // US-1
+		itemStore.createNewUserStory("User story three", 1, "Sprint three"); // US-2
+
+		itemStore.createNewUseCase("Foo", 1, "US-0"); // UC-0
+		itemStore.linkUserStoryToUseCase("UC-0", "US-1");
+		itemStore.linkUserStoryToUseCase("UC-0", "US-2");
+
+		itemStore.showUseCase("UC-0");*/
+
+
+		/*itemStore.createNewBug("Foo", 2, 3);
 		itemStore.createNewBug("Boo", 4, 5);
-		itemStore.showAllBugs();
+		itemStore.showAllBugs();*/
 
 		//itemStore.closeAllBugs();
 
-		itemStore.setItemState("B-0", 1);
+		/*itemStore.setItemState("B-0", 1);
 		itemStore.setItemState("B-1", 2);
 		itemStore.showAllBugs();
 
@@ -30,7 +41,7 @@ public class IssueTracker {
 
 		itemStore.setItemState("B-0", 2);
 		itemStore.setItemState("B-1", 2);
-		itemStore.showAllBugs();
+		itemStore.showAllBugs();*/
 
 		/*System.out.println(itemStore.isValidItemId("B-0", "UC") ? "valid" : "not valid");
 		System.out.println(itemStore.isValidItemId("B-0", "B") ? "valid" : "not valid");
@@ -81,12 +92,15 @@ public class IssueTracker {
 					break;
 				case 5:
 					// 5. Link user story to use case.
+					//boolean isOk = itemStore.linkUserStoryToUseCase(useCaseId, userStoryId);
 					break;
 				case 6:
 					// 6. Set new due date for task.
+					//boolean isOk = itemStore.changeTaskDueDate(itemId, dueDate);
 					break;
 				case 7:
 					// 7. Print use case including linked user stories.
+					//itemStore.showUseCase(itemId);
 					break;
 				case 8:
 					// 8. Set bug severity.

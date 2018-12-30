@@ -16,7 +16,7 @@ public class ItemStore {
 	public void showAllBugs() {
 		int i = 0;
 		for (Bug bug : this.bugs) {
-			System.out.println("### Bug num: B-" + i + " ###");
+			System.out.println("### Bug id: B-" + i + " ###");
 			System.out.println("### Bug description: " + bug.getDescription());
 			System.out.println("### Bug priority: " + bug.getPriority());
 			System.out.println("### Bug date: " + bug.getCreationDate());
@@ -26,6 +26,7 @@ public class ItemStore {
 			i++;
 		}
 	}
+
 
 	// 1(B). Create new bug:
 	public String createNewBug(String description, int priority, int severity) {
@@ -67,12 +68,16 @@ public class ItemStore {
 	}
 
 	// 1(UC). Create new use case:
-	public String createNewUseCase(String description, int priority, int userStory) {
+	public String createNewUseCase(String description, int priority, String userStoryId) {
 		UseCase useCase = new UseCase();
 
 		useCase.setDescription(description);
 		useCase.setPriority(priority);
-		useCase.addUserStory(userStory);
+
+		if (this.isValidItemId(userStoryId, "US")) {
+			// TODO: Handle invalid userStoryId.
+			useCase.addUserStory(this.getItemIndexById(userStoryId));
+		}
 
 		this.useCases.add(useCase);
 
@@ -125,6 +130,57 @@ public class ItemStore {
 				task.setState(1);
 			}
 			task.setState(2);
+		}
+	}
+
+	// 5. Link user story to use case:
+	public boolean linkUserStoryToUseCase(String useCaseId, String userStoryId) {
+		boolean result = false;
+
+		if (this.isValidItemId(useCaseId, "UC")) {
+			if (this.isValidItemId(userStoryId, "US")) {
+				result = this.useCases.get(this.getItemIndexById(useCaseId)).addUserStory(this.getItemIndexById(userStoryId));
+			}
+		}
+
+		return result;
+	}
+
+	// 6. Set new due date for task:
+	public boolean changeTaskDueDate(String itemId, LocalDate dueDate) {
+		if (this.isValidItemId(itemId, "T")) {
+			this.tasks.get(this.getItemIndexById(itemId)).setDueDate(dueDate);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	// 7. Print use case and all linked user stories:
+	public void showUseCase(String itemId) {
+		if (this.isValidItemId(itemId, "UC")) {
+			int useCaseIndex = this.getItemIndexById(itemId);
+			System.out.println("# Use case id: " + itemId);
+			System.out.println("# Use case description: " + this.useCases.get(useCaseIndex).getDescription());
+			System.out.println("# Use case priority: " + this.useCases.get(useCaseIndex).getPriority());
+			System.out.println("# Use case date: " + this.useCases.get(useCaseIndex).getCreationDate());
+			System.out.println("# Use case state: " + this.useCases.get(useCaseIndex).getState());
+			System.out.println();
+
+			for (int i = 0; i < this.useCases.get(useCaseIndex).getUserStoriesCount(); i++) {
+				int userStoryIndex = this.useCases.get(useCaseIndex).getUserStory(i);
+				System.out.println("## User story id: US-" + userStoryIndex);
+				System.out.println("## User story description: " + this.userStories.get(userStoryIndex).getDescription());
+				System.out.println("## User story priority: " + this.userStories.get(userStoryIndex).getPriority());
+				System.out.println("## User story date: " + this.userStories.get(userStoryIndex).getCreationDate());
+				System.out.println("## User story state: " + this.userStories.get(userStoryIndex).getState());
+				System.out.println("## User story sprint name: " + this.userStories.get(userStoryIndex).getSprintName());
+				System.out.println();
+			}
+
+			System.out.println();
+		} else {
+			System.out.println("Invalid use case id.");
 		}
 	}
 

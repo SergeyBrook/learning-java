@@ -2,24 +2,36 @@
  * UseCase class.
  */
 public class UseCase extends Item {
-	protected int defaultStories = 10;
-	protected int[] userStories;
+	protected int lastStoryIndex = -1;
+	private final int[] userStories = new int[10];
 
 	public UseCase() {
 		super();
-		this.userStories = new int[this.defaultStories];
 	}
 
-	public UseCase(int maxStories) {
-		super();
-		if (maxStories < 1 || maxStories > 10) {
-			maxStories = this.defaultStories;
+	public boolean addUserStory(int itemIndex) {
+		if (this.lastStoryIndex + 1 <= this.userStories.length - 1) {
+			this.userStories[this.lastStoryIndex + 1] = itemIndex;
+			this.lastStoryIndex++;
+			return true;
+		} else {
+			return false;
 		}
-		this.userStories = new int[maxStories];
 	}
 
-	public boolean addUserStory(int userStory) {
-		// TODO: Implement.
-		return false;
+	public int getUserStory(int userStoryIndex) {
+		if (userStoryIndex >= 0 && userStoryIndex <= this.lastStoryIndex) {
+			return this.userStories[userStoryIndex];
+		} else {
+			return -1;
+		}
+	}
+
+	public int getUserStoriesCount() {
+		return this.lastStoryIndex + 1;
+	}
+
+	public int getUserStoriesCapacity() {
+		return this.userStories.length;
 	}
 }

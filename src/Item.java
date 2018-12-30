@@ -1,21 +1,18 @@
 import java.util.*;
 import java.text.*;
+import java.time.LocalDate;
 
 /**
  * Item (WIT) class.
  */
-class Item {
+public class Item {
 	protected String description = "N/A";
-	protected int priority = 1;		// 1 - 10
-	protected String dateCreated = "N/A";
-	protected int state = 0;		// 0: "To Do", 1: "In Progress", 2: "Done"
+	protected int priority = 1; // 1 - 10
+	private final LocalDate creationDate = LocalDate.now();
+	protected int state = 0; // 0: "To Do", 1: "In Progress", 2: "Done"
 	protected String[] states = {"To Do", "In Progress", "Done"};
 
-	public Item() {
-		Date dt = new Date();
-		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
-		this.dateCreated = ft.format(dt);
-	}
+	public Item() {}
 
 	public void setDescription(String description) {
 		this.description = description;
@@ -38,8 +35,8 @@ class Item {
 		return this.priority;
 	}
 
-	public String getDateCreated() {
-		return this.dateCreated;
+	public LocalDate getCreationDate() {
+		return this.creationDate;
 	}
 
 	public boolean setState(int state) {

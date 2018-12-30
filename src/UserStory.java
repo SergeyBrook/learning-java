@@ -1,7 +1,7 @@
 /**
  * UserStory class.
  */
-class UserStory extends Item {
+public class UserStory extends Item {
 	protected String sprintName = "N/A";
 
 	public UserStory() {

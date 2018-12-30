@@ -1,8 +1,8 @@
 /**
  * Bug class.
  */
-class Bug extends Item {
-	protected int severity = 1;	// 1 - 10
+public class Bug extends Item {
+	protected int severity = 1; // 1 - 10
 
 	public Bug() {
 		super();

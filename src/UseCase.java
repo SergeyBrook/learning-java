@@ -1,7 +1,7 @@
 /**
  * UseCase class.
  */
-class UseCase extends Item {
+public class UseCase extends Item {
 	protected int defaultStories = 10;
 	protected int[] userStories;
 

@@ -1,18 +1,20 @@
+import java.time.LocalDate;
+
 /**
  * Task class.
  */
-class Task extends Item {
-	protected String dueDate = "N/A";
+public class Task extends Item {
+	protected LocalDate dueDate;
 
 	public Task() {
 		super();
 	}
 
-	public void setDueDate(String dueDate) {
+	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 	}
 
-	public String getDueDate() {
+	public LocalDate getDueDate() {
 		return this.dueDate;
 	}
 }

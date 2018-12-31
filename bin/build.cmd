@@ -6,4 +6,4 @@ cls
 if not exist .\app\ mkdir .\app\
 cd .\src
 
-javac -d ..\app\ Item.java Bug.java Task.java UserStory.java UseCase.java ItemStore.java IssueTracker.java
+javac -d ..\app\ InputProvider.java Item.java Bug.java Task.java UserStory.java UseCase.java ItemStore.java IssueTracker.java

@@ -10,24 +10,6 @@ public class ItemStore {
 	private List<UserStory> userStories = new ArrayList<UserStory>();
 	private List<UseCase> useCases = new ArrayList<UseCase>();
 
-	public ItemStore() {}
-
-	// Debug:
-	public void showAllBugs() {
-		int i = 0;
-		for (Bug bug : this.bugs) {
-			System.out.println("### Bug id: B-" + i + " ###");
-			System.out.println("### Bug description: " + bug.getDescription());
-			System.out.println("### Bug priority: " + bug.getPriority());
-			System.out.println("### Bug date: " + bug.getCreationDate());
-			System.out.println("### Bug state: " + bug.getState());
-			System.out.println("### Bug severity: " + bug.getSeverity());
-			System.out.println();
-			i++;
-		}
-	}
-
-
 	// 1(B). Create new bug:
 	public String createNewBug(String description, int priority, int severity) {
 		Bug bug = new Bug();
@@ -88,10 +70,10 @@ public class ItemStore {
 	public boolean setItemState(String itemId, int state) {
 		boolean result = false;
 
-		String itemType = this.getItemTypeById(itemId);
-		int itemIndex = this.getItemIndexById(itemId);
+		if (this.isValidItemId(itemId)) {
+			String itemType = this.getItemTypeById(itemId);
+			int itemIndex = this.getItemIndexById(itemId);
 
-		if (this.isValidItemId(itemId, itemType)) {
 			switch (itemType) {
 				case "B":
 					result = this.bugs.get(itemIndex).setState(state);
@@ -203,14 +185,13 @@ public class ItemStore {
 		}
 	}
 
-
-	private boolean isValidItemId(String itemId, String requiredType) {
+	public boolean isValidItemId(String itemId) {
 		boolean result = false;
 
 		String itemType = this.getItemTypeById(itemId);
 		int itemIndex = this.getItemIndexById(itemId);
 
-		if (itemIndex >= 0 && itemType.equals(requiredType)) {
+		if (itemIndex >= 0) {
 			switch (itemType) {
 				case "B":
 					result = (itemIndex < this.bugs.size()) ? true : false;
@@ -232,22 +213,47 @@ public class ItemStore {
 		return result;
 	}
 
+	public boolean isValidItemId(String itemId, String requiredType) {
+		boolean result = false;
+
+		if (requiredType.equalsIgnoreCase(this.getItemTypeById(itemId))) {
+			result = this.isValidItemId(itemId);
+		}
+
+		return result;
+	}
+
 	private String getItemTypeById(String itemId) {
+		String result = "";
+		int tokenIndex = 0;
+
 		if (itemId.trim().length() != 0) {
 			String[] idTokens = itemId.split("-");
-			return idTokens[0];
-		} else {
-			return "";
+
+			if (idTokens.length > tokenIndex) {
+				result = idTokens[tokenIndex].toUpperCase();
+			}
 		}
+
+		return result;
 	}
 
 	private int getItemIndexById(String itemId) {
+		int result = -1;
+		int tokenIndex = 1;
+
 		if (itemId.trim().length() != 0) {
 			String[] idTokens = itemId.split("-");
-			// TODO: Catch NumberFormatException.
-			return Integer.parseInt(idTokens[1]);
-		} else {
-			return -1;
+
+			if (idTokens.length > tokenIndex) {
+				try {
+					result = Integer.parseInt(idTokens[tokenIndex]);
+				} catch (NumberFormatException e) {
+					// Do nothing.
+				}
+			}
 		}
+
+		return result;
 	}
 }

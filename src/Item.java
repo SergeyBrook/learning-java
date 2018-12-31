@@ -12,8 +12,6 @@ public class Item {
 	protected int state = 0; // 0: "To Do", 1: "In Progress", 2: "Done"
 	protected String[] states = {"To Do", "In Progress", "Done"};
 
-	public Item() {}
-
 	public void setDescription(String description) {
 		this.description = description;
 	}

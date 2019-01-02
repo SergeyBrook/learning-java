@@ -33,6 +33,19 @@ public class IssueTrackerInputProvider extends ConsoleInputProvider {
 		}
 	}
 
+	public String getNotEmptyStringValue(String name, String message) {
+		String result;
+		while (true) {
+			result = this.getStringValue(name, message);
+			if (result.trim().length() != 0) {
+				break;
+			} else {
+				System.out.println(name.substring(0, 1).toUpperCase() + name.substring(1) + " can't be an empty string, please try again.");
+			}
+		}
+		return result;
+	}
+
 	public int getIntRange(String name, String message, int minValue, int maxValue) {
 		int result;
 		while (true) {

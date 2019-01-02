@@ -1,4 +1,5 @@
-### 1.0.0-rc1 - 2019-01-02 - In progress.
+### 1.0.0-rc1 - 2019-01-02
+- `Added:` getNotEmptyStringValue method to input provider.
 - `Added:` getIntRange method to input provider.
 
 ### 1.0.0-beta - 2019-01-02

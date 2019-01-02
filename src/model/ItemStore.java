@@ -17,7 +17,7 @@ public class ItemStore {
 		boolean isOk = true;
 
 		Bug bug = new Bug();
-		bug.setDescription(description);
+		isOk &= bug.setDescription(description);
 		isOk &= bug.setPriority(priority);
 		isOk &= bug.setSeverity(severity);
 
@@ -34,7 +34,7 @@ public class ItemStore {
 		boolean isOk = true;
 
 		Task task = new Task();
-		task.setDescription(description);
+		isOk &= task.setDescription(description);
 		isOk &= task.setPriority(priority);
 		task.setDueDate(dueDate);
 
@@ -51,9 +51,9 @@ public class ItemStore {
 		boolean isOk = true;
 
 		UserStory userStory = new UserStory();
-		userStory.setDescription(description);
+		isOk &= userStory.setDescription(description);
 		isOk &= userStory.setPriority(priority);
-		userStory.setSprintName(sprintName);
+		isOk &= userStory.setSprintName(sprintName);
 
 		if (isOk) {
 			this.userStories.add(userStory);
@@ -68,7 +68,7 @@ public class ItemStore {
 		boolean isOk = true;
 
 		UseCase useCase = new UseCase();
-		useCase.setDescription(description);
+		isOk &= useCase.setDescription(description);
 		isOk &= useCase.setPriority(priority);
 
 		if (this.isValidItemId(userStoryId, "US")) {
@@ -197,8 +197,7 @@ public class ItemStore {
 	// 9. Change sprint name in user story:
 	public boolean changeUserStorySprintName(String itemId, String sprintName) {
 		if (this.isValidItemId(itemId, "US")) {
-			this.userStories.get(this.getItemIndexById(itemId)).setSprintName(sprintName);
-			return true;
+			return this.userStories.get(this.getItemIndexById(itemId)).setSprintName(sprintName);
 		} else {
 			return false;
 		}

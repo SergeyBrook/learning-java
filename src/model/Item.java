@@ -14,8 +14,13 @@ public class Item {
 	protected int state = 0; // 0: "To Do", 1: "In Progress", 2: "Done"
 	protected String[] states = {"To Do", "In Progress", "Done"};
 
-	public void setDescription(String description) {
-		this.description = description;
+	public boolean setDescription(String description) {
+		if (description.trim().length() != 0) {
+			this.description = description;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public String getDescription() {

@@ -10,8 +10,13 @@ public class UserStory extends Item {
 		super();
 	}
 
-	public void setSprintName(String sprintName) {
-		this.sprintName = sprintName;
+	public boolean setSprintName(String sprintName) {
+		if (sprintName.trim().length() != 0) {
+			this.sprintName = sprintName;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public String getSprintName() {

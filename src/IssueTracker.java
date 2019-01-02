@@ -128,7 +128,7 @@ public class IssueTracker {
 					// 9. Change sprint name in user story:
 					itemId = inputProvider.getIdValue();
 					if (itemId.trim().length() > 0) {
-						sprintName = inputProvider.getStringValue("sprint name", "");
+						sprintName = inputProvider.getNotEmptyStringValue("sprint name", "");
 						if (itemStore.changeUserStorySprintName(itemId, sprintName)) {
 							System.out.println("Ok.");
 						} else {
@@ -159,41 +159,33 @@ public class IssueTracker {
 
 		itemType = inputProvider.getTypeValue();
 		if (itemType.trim().length() > 0) {
-			description = inputProvider.getStringValue("item description", "");
-			if (description.trim().length() > 0) {
-				priority = inputProvider.getIntRange("item priority", 1, 10);
-				switch (itemType) {
-					case "B":
-						// Bug:
-						severity = inputProvider.getIntRange("bug severity", 1, 10);
-						itemId = itemStore.createNewBug(description, priority, severity);
-						break;
-					case "T":
-						// Task:
-						dueDate = inputProvider.getDateValue("due date", "valid format: yyyy-MM-dd");
-						itemId = itemStore.createNewTask(description, priority, dueDate);
-						break;
-					case "US":
-						// User story:
-						sprintName = inputProvider.getStringValue("sprint name", "");
-						if (sprintName.trim().length() > 0) {
-							itemId = itemStore.createNewUserStory(description, priority, sprintName);
-						} else {
-							System.out.println("Sprint name can't be an empty string!");
-						}
-						break;
-					case "UC":
-						// Use case:
-						subitemId = inputProvider.getIdValue();
-						if (subitemId.trim().length() > 0) {
-							itemId = itemStore.createNewUseCase(description, priority, subitemId);
-						}
-						break;
-					default:
-						break;
-				}
-			} else {
-				System.out.println("Item description can't be an empty string!");
+			description = inputProvider.getNotEmptyStringValue("item description", "");
+			priority = inputProvider.getIntRange("item priority", 1, 10);
+			switch (itemType) {
+				case "B":
+					// Bug:
+					severity = inputProvider.getIntRange("bug severity", 1, 10);
+					itemId = itemStore.createNewBug(description, priority, severity);
+					break;
+				case "T":
+					// Task:
+					dueDate = inputProvider.getDateValue("due date", "valid format: yyyy-MM-dd");
+					itemId = itemStore.createNewTask(description, priority, dueDate);
+					break;
+				case "US":
+					// User story:
+					sprintName = inputProvider.getNotEmptyStringValue("sprint name", "");
+					itemId = itemStore.createNewUserStory(description, priority, sprintName);
+					break;
+				case "UC":
+					// Use case:
+					subitemId = inputProvider.getIdValue();
+					if (subitemId.trim().length() > 0) {
+						itemId = itemStore.createNewUseCase(description, priority, subitemId);
+					}
+					break;
+				default:
+					break;
 			}
 		}
 

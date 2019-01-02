@@ -12,58 +12,75 @@ public class ItemStore {
 
 	// 1(B). Create new bug:
 	public String createNewBug(String description, int priority, int severity) {
+		boolean isOk = true;
+
 		Bug bug = new Bug();
-
 		bug.setDescription(description);
-		bug.setPriority(priority);
-		bug.setSeverity(severity);
+		isOk &= bug.setPriority(priority);
+		isOk &= bug.setSeverity(severity);
 
-		this.bugs.add(bug);
-
-		return "B-" + (this.bugs.size() - 1);
+		if (isOk) {
+			this.bugs.add(bug);
+			return "B-" + (this.bugs.size() - 1);
+		} else {
+			return "";
+		}
 	}
 
 	// 1(T). Create new task:
 	public String createNewTask(String description, int priority, LocalDate dueDate) {
-		Task task = new Task();
+		boolean isOk = true;
 
+		Task task = new Task();
 		task.setDescription(description);
-		task.setPriority(priority);
+		isOk &= task.setPriority(priority);
 		task.setDueDate(dueDate);
 
-		this.tasks.add(task);
-
-		return "T-" + (this.tasks.size() - 1);
+		if (isOk) {
+			this.tasks.add(task);
+			return "T-" + (this.tasks.size() - 1);
+		} else {
+			return "";
+		}
 	}
 
 	// 1(US). Create new user story:
 	public String createNewUserStory(String description, int priority, String sprintName) {
-		UserStory userStory = new UserStory();
+		boolean isOk = true;
 
+		UserStory userStory = new UserStory();
 		userStory.setDescription(description);
-		userStory.setPriority(priority);
+		isOk &= userStory.setPriority(priority);
 		userStory.setSprintName(sprintName);
 
-		this.userStories.add(userStory);
-
-		return "US-" + (this.userStories.size() - 1);
+		if (isOk) {
+			this.userStories.add(userStory);
+			return "US-" + (this.userStories.size() - 1);
+		} else {
+			return "";
+		}
 	}
 
 	// 1(UC). Create new use case:
 	public String createNewUseCase(String description, int priority, String userStoryId) {
-		UseCase useCase = new UseCase();
+		boolean isOk = true;
 
+		UseCase useCase = new UseCase();
 		useCase.setDescription(description);
-		useCase.setPriority(priority);
+		isOk &= useCase.setPriority(priority);
 
 		if (this.isValidItemId(userStoryId, "US")) {
-			// TODO: Handle invalid userStoryId.
-			useCase.addUserStory(this.getItemIndexById(userStoryId));
+			isOk &= useCase.addUserStory(this.getItemIndexById(userStoryId));
+		} else {
+			isOk = false;
 		}
 
-		this.useCases.add(useCase);
-
-		return "UC-" + (this.useCases.size() - 1);
+		if (isOk) {
+			this.useCases.add(useCase);
+			return "UC-" + (this.useCases.size() - 1);
+		} else {
+			return "";
+		}
 	}
 
 	// 2. Set item state:

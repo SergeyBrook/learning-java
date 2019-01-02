@@ -46,7 +46,9 @@ public class IssueTracker {
 					// 1. Create new item:
 					itemId = createItemMenu();
 					if (itemId.trim().length() > 0) {
-						System.out.println("New item created with id: " + itemId);
+						System.out.println("New item successfully created. New item id: " + itemId);
+					} else {
+						System.out.println("New item was not created (see error message above).");
 					}
 					break;
 				case 2:

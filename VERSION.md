@@ -1,3 +1,6 @@
+### 1.0.0-beta - 2019-01-02 - In progress.
+- `Added:` Error handling in item creation methods.
+
 ### 1.0.0-alpha - 2018-12-31
 
 ### 0.1.0 - 2018-12-30 - Development.

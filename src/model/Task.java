@@ -1,3 +1,5 @@
+package assignments.issuetracker.model;
+
 import java.time.LocalDate;
 
 /**

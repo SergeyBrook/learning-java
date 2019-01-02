@@ -1,10 +1,16 @@
+package assignments.issuetracker.providers;
+
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public class InputProvider {
+/**
+ * ConsoleInputProvider class
+ */
+public class ConsoleInputProvider implements InputProvider {
 	private Scanner input = new Scanner(System.in);
 
+	@Override
 	public String getStringValue(String name, String message) {
 		if (message.trim().length() != 0) {
 			System.out.println("Please enter " + name + " (" + message + "):");
@@ -16,6 +22,7 @@ public class InputProvider {
 		return this.input.nextLine();
 	}
 
+	@Override
 	public String getStringValue(String message) {
 		System.out.println(message);
 		System.out.print("> ");
@@ -23,6 +30,7 @@ public class InputProvider {
 		return this.input.nextLine();
 	}
 
+	@Override
 	public int getIntValue(String name, String message) {
 		int result;
 		while (true) {
@@ -37,10 +45,12 @@ public class InputProvider {
 		return result;
 	}
 
+	@Override
 	public int getIntValue() {
 		return getIntValue("", "");
 	}
 
+	@Override
 	public LocalDate getDateValue(String name, String message) {
 		LocalDate result = null;
 		while (true) {

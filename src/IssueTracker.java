@@ -1,11 +1,15 @@
+package assignments.issuetracker;
+
+import assignments.issuetracker.model.ItemStore;
+
 import java.time.LocalDate;
 
 /**
  * IssueTracker class.
  */
 public class IssueTracker {
-	private InputProvider inputProvider = new InputProvider();
 	private ItemStore itemStore = new ItemStore();
+	private IssueTrackerInputProvider inputProvider = new IssueTrackerInputProvider(itemStore);
 
 	public static void main(String[] args) {
 		IssueTracker issueTracker = new IssueTracker();
@@ -53,7 +57,7 @@ public class IssueTracker {
 					break;
 				case 2:
 					// 2. Set item state:
-					itemId = getIdValue();
+					itemId = inputProvider.getIdValue();
 					if (itemId.trim().length() > 0) {
 						state = inputProvider.getIntValue("item state", "int: 0 = To Do, 1 = In Progress, 2 = Done");
 						if (itemStore.setItemState(itemId, state)) {
@@ -77,58 +81,58 @@ public class IssueTracker {
 					break;
 				case 5:
 					// 5. Link user story to use case:
-					itemId = getIdValue();
+					itemId = inputProvider.getIdValue();
 					if (itemId.trim().length() > 0) {
-						subitemId = getIdValue();
+						subitemId = inputProvider.getIdValue();
 						if (subitemId.trim().length() > 0) {
 							if (itemStore.linkUserStoryToUseCase(itemId, subitemId)) {
 								System.out.println("Ok.");
 							} else {
-								System.out.println("Not enough capacity to link additional user story!");
+								System.out.println("Not enough capacity to link additional user story or invalid user story or use case id!");
 							}
 						}
 					}
 					break;
 				case 6:
 					// 6. Set new due date for task:
-					itemId = getIdValue();
+					itemId = inputProvider.getIdValue();
 					if (itemId.trim().length() > 0) {
 						dueDate = inputProvider.getDateValue("due date", "valid format: yyyy-MM-dd");
 						if (itemStore.changeTaskDueDate(itemId, dueDate)) {
 							System.out.println("Ok.");
 						} else {
-							System.out.println("Gevalt! Something went wrong...");
+							System.out.println("Invalid task id!");
 						}
 					}
 					break;
 				case 7:
 					// 7. Print use case including linked user stories:
-					itemId = getIdValue();
+					itemId = inputProvider.getIdValue();
 					if (itemId.trim().length() > 0) {
 						itemStore.showUseCase(itemId);
 					}
 					break;
 				case 8:
 					// 8. Set bug severity:
-					itemId = getIdValue();
+					itemId = inputProvider.getIdValue();
 					if (itemId.trim().length() > 0) {
 						severity = inputProvider.getIntValue("bug severity", "int: 1 - 10");
 						if (itemStore.changeBugSeverity(itemId, severity)) {
 							System.out.println("Ok.");
 						} else {
-							System.out.println("Invalid sevrity level!");
+							System.out.println("Invalid sevrity level or bug id!");
 						}
 					}
 					break;
 				case 9:
 					// 9. Change sprint name in user story:
-					itemId = getIdValue();
+					itemId = inputProvider.getIdValue();
 					if (itemId.trim().length() > 0) {
 						sprintName = inputProvider.getStringValue("sprint name", "");
 						if (itemStore.changeUserStorySprintName(itemId, sprintName)) {
 							System.out.println("Ok.");
 						} else {
-							System.out.println("Catastrophic error! Probably because i hate the sprints...");
+							System.out.println("Invalid user story id!");
 						}
 					}
 					break;
@@ -138,6 +142,7 @@ public class IssueTracker {
 					System.out.println("Exiting...");
 					break fromWhile;
 				default:
+					System.out.println("Invalid menu item. Please choose 1 - 10.");
 					break;
 			}
 		}
@@ -153,7 +158,7 @@ public class IssueTracker {
 		int priority;
 		int severity;
 
-		itemType = getTypeValue();
+		itemType = inputProvider.getTypeValue();
 		if (itemType.trim().length() > 0) {
 			description = inputProvider.getStringValue("item description", "");
 			if (description.trim().length() > 0) {
@@ -185,7 +190,7 @@ public class IssueTracker {
 							break;
 						case "UC":
 							// Use case:
-							subitemId = getIdValue();
+							subitemId = inputProvider.getIdValue();
 							if (subitemId.trim().length() > 0) {
 								itemId = itemStore.createNewUseCase(description, priority, subitemId);
 							}
@@ -202,26 +207,5 @@ public class IssueTracker {
 		}
 
 		return itemId;
-	}
-
-
-	private String getTypeValue() {
-		String val = inputProvider.getStringValue("item type", "valid values: B = Bug, T = Task, US = User Story, UC = Use Case").toUpperCase();
-		if (val.equals("B") || val.equals("T") || val.equals("US") || val.equals("UC")) {
-			return val;
-		} else {
-			System.out.println("Invalid item type.");
-			return "";
-		}
-	}
-
-	private String getIdValue() {
-		String val = inputProvider.getStringValue("item id", "valid format: <type>-<index> e.g. UC-42").toUpperCase();
-		if (itemStore.isValidItemId(val)) {
-			return val;
-		} else {
-			System.out.println("Invalid item id format or item with such id does not exists.");
-			return "";
-		}
 	}
 }

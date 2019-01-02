@@ -1,3 +1,5 @@
+package assignments.issuetracker.model;
+
 /**
  * UseCase class.
  */

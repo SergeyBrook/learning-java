@@ -1,4 +1,7 @@
-### 1.0.0-beta - 2019-01-02 - In progress.
+### 1.0.0-beta - 2019-01-02
+- `Changed:` File structure reorganization according to package structure.
+- `Added:` Package declarations.
+- `Changed:` More descriptive error messages.
 - `Added:` Error handling in item creation methods.
 
 ### 1.0.0-alpha - 2018-12-31

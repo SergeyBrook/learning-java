@@ -2,6 +2,9 @@ package assignments.issuetracker.providers;
 
 import java.time.LocalDate;
 
+/**
+ * InputProvider interface
+ */
 public interface InputProvider {
 	String getStringValue(String name, String message);
 

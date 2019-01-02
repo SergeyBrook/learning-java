@@ -44,7 +44,7 @@ public class IssueTracker {
 			System.out.println("[9] Change sprint.");
 			System.out.println("[10] Exit.");
 
-			menuItem = inputProvider.getIntValue();
+			menuItem = inputProvider.getIntRange("menu item number", 1, 10);
 			switch (menuItem) {
 				case 1:
 					// 1. Create new item:
@@ -59,11 +59,11 @@ public class IssueTracker {
 					// 2. Set item state:
 					itemId = inputProvider.getIdValue();
 					if (itemId.trim().length() > 0) {
-						state = inputProvider.getIntValue("item state", "int: 0 = To Do, 1 = In Progress, 2 = Done");
+						state = inputProvider.getIntRange("item state", "int: 0 = To Do, 1 = In Progress, 2 = Done", 0, 2);
 						if (itemStore.setItemState(itemId, state)) {
 							System.out.println("Ok.");
 						} else {
-							System.out.println("Invalid item state or transition!");
+							System.out.println("Invalid state transition!");
 						}
 					}
 					break;
@@ -116,11 +116,11 @@ public class IssueTracker {
 					// 8. Set bug severity:
 					itemId = inputProvider.getIdValue();
 					if (itemId.trim().length() > 0) {
-						severity = inputProvider.getIntValue("bug severity", "int: 1 - 10");
+						severity = inputProvider.getIntRange("bug severity", 1, 10);
 						if (itemStore.changeBugSeverity(itemId, severity)) {
 							System.out.println("Ok.");
 						} else {
-							System.out.println("Invalid sevrity level or bug id!");
+							System.out.println("Invalid bug id!");
 						}
 					}
 					break;
@@ -142,7 +142,6 @@ public class IssueTracker {
 					System.out.println("Exiting...");
 					break fromWhile;
 				default:
-					System.out.println("Invalid menu item. Please choose 1 - 10.");
 					break;
 			}
 		}
@@ -162,44 +161,36 @@ public class IssueTracker {
 		if (itemType.trim().length() > 0) {
 			description = inputProvider.getStringValue("item description", "");
 			if (description.trim().length() > 0) {
-				priority = inputProvider.getIntValue("item priority", "int: 1 - 10");
-				if (priority >= 1 && priority <= 10) {
-					switch (itemType) {
-						case "B":
-							// Bug:
-							severity = inputProvider.getIntValue("bug severity", "int: 1 - 10");
-							if (severity >= 1 && severity <= 10) {
-								itemId = itemStore.createNewBug(description, priority, severity);
-							} else {
-								System.out.println("Invalid sevrity level!");
-							}
-							break;
-						case "T":
-							// Task:
-							dueDate = inputProvider.getDateValue("due date", "valid format: yyyy-MM-dd");
-							itemId = itemStore.createNewTask(description, priority, dueDate);
-							break;
-						case "US":
-							// User story:
-							sprintName = inputProvider.getStringValue("sprint name", "");
-							if (sprintName.trim().length() > 0) {
-								itemId = itemStore.createNewUserStory(description, priority, sprintName);
-							} else {
-								System.out.println("Sprint name can't be an empty string!");
-							}
-							break;
-						case "UC":
-							// Use case:
-							subitemId = inputProvider.getIdValue();
-							if (subitemId.trim().length() > 0) {
-								itemId = itemStore.createNewUseCase(description, priority, subitemId);
-							}
-							break;
-						default:
-							break;
-					}
-				} else {
-					System.out.println("Invalid Priority level!");
+				priority = inputProvider.getIntRange("item priority", 1, 10);
+				switch (itemType) {
+					case "B":
+						// Bug:
+						severity = inputProvider.getIntRange("bug severity", 1, 10);
+						itemId = itemStore.createNewBug(description, priority, severity);
+						break;
+					case "T":
+						// Task:
+						dueDate = inputProvider.getDateValue("due date", "valid format: yyyy-MM-dd");
+						itemId = itemStore.createNewTask(description, priority, dueDate);
+						break;
+					case "US":
+						// User story:
+						sprintName = inputProvider.getStringValue("sprint name", "");
+						if (sprintName.trim().length() > 0) {
+							itemId = itemStore.createNewUserStory(description, priority, sprintName);
+						} else {
+							System.out.println("Sprint name can't be an empty string!");
+						}
+						break;
+					case "UC":
+						// Use case:
+						subitemId = inputProvider.getIdValue();
+						if (subitemId.trim().length() > 0) {
+							itemId = itemStore.createNewUseCase(description, priority, subitemId);
+						}
+						break;
+					default:
+						break;
 				}
 			} else {
 				System.out.println("Item description can't be an empty string!");

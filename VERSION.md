@@ -1,3 +1,6 @@
+### 1.0.0-rc1 - 2019-01-02 - In progress.
+- `Added:` getIntRange method to input provider.
+
 ### 1.0.0-beta - 2019-01-02
 - `Changed:` File structure reorganization according to package structure.
 - `Added:` Package declarations.

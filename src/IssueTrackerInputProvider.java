@@ -32,4 +32,22 @@ public class IssueTrackerInputProvider extends ConsoleInputProvider {
 			return "";
 		}
 	}
+
+	public int getIntRange(String name, String message, int minValue, int maxValue) {
+		int result;
+		while (true) {
+			result = this.getIntValue(name, message);
+			if (result >= minValue && result <= maxValue) {
+				break;
+			} else {
+				System.out.println("Should be an integer number between " + minValue + " and " + maxValue + ", please try again.");
+			}
+		}
+		return result;
+	}
+
+	public int getIntRange(String name, int minValue, int maxValue) {
+		String message = "integer number between " + minValue + " and " + maxValue;
+		return this.getIntRange(name, message, minValue, maxValue);
+	}
 }

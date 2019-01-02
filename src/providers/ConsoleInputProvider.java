@@ -39,7 +39,7 @@ public class ConsoleInputProvider implements InputProvider {
 				result = Integer.parseInt(val);
 				break;
 			} catch (NumberFormatException e) {
-				System.out.println("Should be an integer number, please try again");
+				System.out.println("Should be an integer number, please try again.");
 			}
 		}
 		return result;
@@ -59,7 +59,7 @@ public class ConsoleInputProvider implements InputProvider {
 				result = LocalDate.parse(val);
 				break;
 			} catch (DateTimeParseException e) {
-				System.out.println("Should be a date. e.g. 2018-12-31, please try again");
+				System.out.println("Should be a date. e.g. 2018-12-31, please try again.");
 			}
 		}
 		return result;

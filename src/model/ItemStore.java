@@ -160,24 +160,28 @@ public class ItemStore {
 
 	// 7. Print use case and all linked user stories:
 	public void showUseCase(String itemId) {
+		String graph;
+		int useCaseIndex;
+		int userStoryIndex;
+
 		if (this.isValidItemId(itemId, "UC")) {
-			int useCaseIndex = this.getItemIndexById(itemId);
-			System.out.println("# Use case id: " + itemId);
-			System.out.println("# Use case description: " + this.useCases.get(useCaseIndex).getDescription());
-			System.out.println("# Use case priority: " + this.useCases.get(useCaseIndex).getPriority());
-			System.out.println("# Use case date: " + this.useCases.get(useCaseIndex).getCreationDate());
-			System.out.println("# Use case state: " + this.useCases.get(useCaseIndex).getState());
-			System.out.println();
+			useCaseIndex = this.getItemIndexById(itemId);
+			System.out.println("* Use case id: " + itemId);
+			System.out.println("|  Use case description: " + this.useCases.get(useCaseIndex).getDescription());
+			System.out.println("|  Use case priority: " + this.useCases.get(useCaseIndex).getPriority());
+			System.out.println("|  Use case date: " + this.useCases.get(useCaseIndex).getCreationDate());
+			System.out.println("|  Use case state: " + this.useCases.get(useCaseIndex).getState());
 
 			for (int i = 0; i < this.useCases.get(useCaseIndex).getUserStoriesCount(); i++) {
-				int userStoryIndex = this.useCases.get(useCaseIndex).getUserStory(i);
-				System.out.println("## User story id: US-" + userStoryIndex);
-				System.out.println("## User story description: " + this.userStories.get(userStoryIndex).getDescription());
-				System.out.println("## User story priority: " + this.userStories.get(userStoryIndex).getPriority());
-				System.out.println("## User story date: " + this.userStories.get(userStoryIndex).getCreationDate());
-				System.out.println("## User story state: " + this.userStories.get(userStoryIndex).getState());
-				System.out.println("## User story sprint name: " + this.userStories.get(userStoryIndex).getSprintName());
-				System.out.println();
+				graph = (i == this.useCases.get(useCaseIndex).getUserStoriesCount() - 1) ? " " : "|";
+				userStoryIndex = this.useCases.get(useCaseIndex).getUserStory(i);
+				System.out.println("|");
+				System.out.println("*- User story id: US-" + userStoryIndex);
+				System.out.println(graph + "   User story description: " + this.userStories.get(userStoryIndex).getDescription());
+				System.out.println(graph + "   User story priority: " + this.userStories.get(userStoryIndex).getPriority());
+				System.out.println(graph + "   User story date: " + this.userStories.get(userStoryIndex).getCreationDate());
+				System.out.println(graph + "   User story state: " + this.userStories.get(userStoryIndex).getState());
+				System.out.println(graph + "   User story sprint name: " + this.userStories.get(userStoryIndex).getSprintName());
 			}
 		} else {
 			System.out.println("Invalid use case id.");

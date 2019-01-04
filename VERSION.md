@@ -1,4 +1,5 @@
 ### 1.0.0 - 2019-01-04 - In progress.
+- `Added:` Empty string handling in getTypeValue and getIdValue methods.
 - `Changed:` More descriptive menus and messages.
 - `Changed:` Code cleanup.
 - `Added:` Name parameter to getIdValue method.

@@ -13,26 +13,6 @@ public class IssueTrackerInputProvider extends ConsoleInputProvider {
 		this.itemStore = itemStore;
 	}
 
-	public String getTypeValue() {
-		String val = this.getStringValue("item type", "valid values: B = Bug, T = Task, US = User Story, UC = Use Case").toUpperCase();
-		if (val.equals("B") || val.equals("T") || val.equals("US") || val.equals("UC")) {
-			return val;
-		} else {
-			System.out.println("Invalid item type.");
-			return "";
-		}
-	}
-
-	public String getIdValue(String name) {
-		String val = this.getStringValue(name + " id", "valid format: <type>-<index> e.g. AB-123").toUpperCase();
-		if (this.itemStore.isValidItemId(val)) {
-			return val;
-		} else {
-			System.out.println("Invalid item id format or item with such id does not exists.");
-			return "";
-		}
-	}
-
 	public String getNotEmptyStringValue(String name, String message) {
 		String result;
 		while (true) {
@@ -44,6 +24,26 @@ public class IssueTrackerInputProvider extends ConsoleInputProvider {
 			}
 		}
 		return result;
+	}
+
+	public String getTypeValue() {
+		String val = this.getNotEmptyStringValue("item type", "valid values: B = Bug, T = Task, US = User Story, UC = Use Case").toUpperCase();
+		if (val.equals("B") || val.equals("T") || val.equals("US") || val.equals("UC")) {
+			return val;
+		} else {
+			System.out.println("Invalid item type.");
+			return "";
+		}
+	}
+
+	public String getIdValue(String name) {
+		String val = this.getNotEmptyStringValue(name + " id", "valid format: <type>-<index> e.g. AB-123").toUpperCase();
+		if (this.itemStore.isValidItemId(val)) {
+			return val;
+		} else {
+			System.out.println("Invalid item id format or item with such id does not exists.");
+			return "";
+		}
 	}
 
 	public int getIntRange(String name, String message, int minValue, int maxValue) {

@@ -1,3 +1,9 @@
+### 1.0.0 - 2019-01-04 - In progress.
+- `Changed:` More descriptive menus and messages.
+- `Changed:` Code cleanup.
+- `Added:` Name parameter to getIdValue method.
+- `Removed:` Unnecessary imports.
+
 ### 1.0.0-rc1 - 2019-01-02
 - `Added:` getNotEmptyStringValue method to input provider.
 - `Added:` getIntRange method to input provider.

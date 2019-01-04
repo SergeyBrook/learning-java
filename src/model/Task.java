@@ -8,10 +8,6 @@ import java.time.LocalDate;
 public class Task extends Item {
 	protected LocalDate dueDate;
 
-	public Task() {
-		super();
-	}
-
 	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 	}

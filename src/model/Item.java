@@ -1,7 +1,5 @@
 package assignments.issuetracker.model;
 
-import java.util.*;
-import java.text.*;
 import java.time.LocalDate;
 
 /**
@@ -9,7 +7,7 @@ import java.time.LocalDate;
  */
 public class Item {
 	protected String description = "N/A";
-	protected int priority = 1; // 1 - 10
+	protected int priority = 1;
 	private final LocalDate creationDate = LocalDate.now();
 	protected int state = 0; // 0: "To Do", 1: "In Progress", 2: "Done"
 	protected String[] states = {"To Do", "In Progress", "Done"};
@@ -46,8 +44,7 @@ public class Item {
 
 	public boolean setState(int state) {
 		boolean result = false;
-		//if (state >= 0 && state < this.states.length) {
-		if (state >= 0 && state <= 2) {
+		if (state >= 0 && state < this.states.length) {
 			if (!(this.state == 0 && state == 2) && !(this.state == 1 && state == 0) && !(this.state == 2 && state == 0)) {
 				this.state = state;
 				result = true;

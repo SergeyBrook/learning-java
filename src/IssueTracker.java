@@ -30,18 +30,18 @@ public class IssueTracker {
 		while (true) {
 			System.out.println("");
 			System.out.println("================================");
-			System.out.println("* Issue Tracking System");
-			System.out.println("* By: Igor Evtushenko");
+			System.out.println("*   Issue Tracking System v1   *");
+			System.out.println("*     By: Igor Yevtushenko     *");
 			System.out.println("================================");
 			System.out.println("[1] Create new item.");
-			System.out.println("[2] Set item state.");
+			System.out.println("[2] Change item state.");
 			System.out.println("[3] Close all bugs.");
 			System.out.println("[4] Close all tasks.");
 			System.out.println("[5] Link user story to use case.");
-			System.out.println("[6] Set new due date.");
+			System.out.println("[6] Change task due date.");
 			System.out.println("[7] Print use case.");
-			System.out.println("[8] Set bug severity.");
-			System.out.println("[9] Change sprint.");
+			System.out.println("[8] Change bug severity.");
+			System.out.println("[9] Change sprint name in user story.");
 			System.out.println("[10] Exit.");
 
 			menuItem = inputProvider.getIntRange("menu item number", 1, 10);
@@ -56,11 +56,11 @@ public class IssueTracker {
 					}
 					break;
 				case 2:
-					// 2. Set item state:
-					itemId = inputProvider.getIdValue();
+					// 2. Change item state:
+					itemId = inputProvider.getIdValue("item");
 					if (itemId.trim().length() > 0) {
 						state = inputProvider.getIntRange("item state", "int: 0 = To Do, 1 = In Progress, 2 = Done", 0, 2);
-						if (itemStore.setItemState(itemId, state)) {
+						if (itemStore.changeItemState(itemId, state)) {
 							System.out.println("Ok.");
 						} else {
 							System.out.println("Invalid state transition!");
@@ -81,9 +81,9 @@ public class IssueTracker {
 					break;
 				case 5:
 					// 5. Link user story to use case:
-					itemId = inputProvider.getIdValue();
+					itemId = inputProvider.getIdValue("use case");
 					if (itemId.trim().length() > 0) {
-						subitemId = inputProvider.getIdValue();
+						subitemId = inputProvider.getIdValue("user story");
 						if (subitemId.trim().length() > 0) {
 							if (itemStore.linkUserStoryToUseCase(itemId, subitemId)) {
 								System.out.println("Ok.");
@@ -94,8 +94,8 @@ public class IssueTracker {
 					}
 					break;
 				case 6:
-					// 6. Set new due date for task:
-					itemId = inputProvider.getIdValue();
+					// 6. Change task due date:
+					itemId = inputProvider.getIdValue("task");
 					if (itemId.trim().length() > 0) {
 						dueDate = inputProvider.getDateValue("due date", "valid format: yyyy-MM-dd");
 						if (itemStore.changeTaskDueDate(itemId, dueDate)) {
@@ -107,14 +107,14 @@ public class IssueTracker {
 					break;
 				case 7:
 					// 7. Print use case including linked user stories:
-					itemId = inputProvider.getIdValue();
+					itemId = inputProvider.getIdValue("use case");
 					if (itemId.trim().length() > 0) {
 						itemStore.showUseCase(itemId);
 					}
 					break;
 				case 8:
-					// 8. Set bug severity:
-					itemId = inputProvider.getIdValue();
+					// 8. Change bug severity:
+					itemId = inputProvider.getIdValue("bug");
 					if (itemId.trim().length() > 0) {
 						severity = inputProvider.getIntRange("bug severity", 1, 10);
 						if (itemStore.changeBugSeverity(itemId, severity)) {
@@ -126,7 +126,7 @@ public class IssueTracker {
 					break;
 				case 9:
 					// 9. Change sprint name in user story:
-					itemId = inputProvider.getIdValue();
+					itemId = inputProvider.getIdValue("user story");
 					if (itemId.trim().length() > 0) {
 						sprintName = inputProvider.getNotEmptyStringValue("sprint name", "");
 						if (itemStore.changeUserStorySprintName(itemId, sprintName)) {
@@ -179,7 +179,7 @@ public class IssueTracker {
 					break;
 				case "UC":
 					// Use case:
-					subitemId = inputProvider.getIdValue();
+					subitemId = inputProvider.getIdValue("user story");
 					if (subitemId.trim().length() > 0) {
 						itemId = itemStore.createNewUseCase(description, priority, subitemId);
 					}

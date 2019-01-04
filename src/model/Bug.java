@@ -4,11 +4,7 @@ package assignments.issuetracker.model;
  * Bug class.
  */
 public class Bug extends Item {
-	protected int severity = 1; // 1 - 10
-
-	public Bug() {
-		super();
-	}
+	protected int severity = 1;
 
 	public boolean setSeverity(int severity) {
 		if (severity >= 1 && severity <= 10) {

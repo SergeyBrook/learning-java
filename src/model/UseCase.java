@@ -7,10 +7,6 @@ public class UseCase extends Item {
 	protected int lastStoryIndex = -1;
 	private final int[] userStories = new int[10];
 
-	public UseCase() {
-		super();
-	}
-
 	public boolean addUserStory(int itemIndex) {
 		if (this.lastStoryIndex + 1 <= this.userStories.length - 1) {
 			this.userStories[this.lastStoryIndex + 1] = itemIndex;

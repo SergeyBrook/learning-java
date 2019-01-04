@@ -1,6 +1,7 @@
 package assignments.issuetracker.model;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 import java.time.LocalDate;
 
 /**
@@ -85,8 +86,8 @@ public class ItemStore {
 		}
 	}
 
-	// 2. Set item state:
-	public boolean setItemState(String itemId, int state) {
+	// 2. Change item state:
+	public boolean changeItemState(String itemId, int state) {
 		boolean result = false;
 
 		if (this.isValidItemId(itemId)) {
@@ -147,7 +148,7 @@ public class ItemStore {
 		return result;
 	}
 
-	// 6. Set new due date for task:
+	// 6. Change task due date:
 	public boolean changeTaskDueDate(String itemId, LocalDate dueDate) {
 		if (this.isValidItemId(itemId, "T")) {
 			this.tasks.get(this.getItemIndexById(itemId)).setDueDate(dueDate);
@@ -178,14 +179,12 @@ public class ItemStore {
 				System.out.println("## User story sprint name: " + this.userStories.get(userStoryIndex).getSprintName());
 				System.out.println();
 			}
-
-			System.out.println();
 		} else {
 			System.out.println("Invalid use case id.");
 		}
 	}
 
-	// 8. Set bug severity:
+	// 8. Change bug severity:
 	public boolean changeBugSeverity(String itemId, int severity) {
 		if (this.isValidItemId(itemId, "B")) {
 			return this.bugs.get(this.getItemIndexById(itemId)).setSeverity(severity);

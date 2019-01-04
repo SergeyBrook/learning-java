@@ -23,8 +23,8 @@ public class IssueTrackerInputProvider extends ConsoleInputProvider {
 		}
 	}
 
-	public String getIdValue() {
-		String val = this.getStringValue("item id", "valid format: <type>-<index> e.g. UC-42").toUpperCase();
+	public String getIdValue(String name) {
+		String val = this.getStringValue(name + " id", "valid format: <type>-<index> e.g. AB-123").toUpperCase();
 		if (this.itemStore.isValidItemId(val)) {
 			return val;
 		} else {

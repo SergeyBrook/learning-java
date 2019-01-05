@@ -1,4 +1,4 @@
-rem Run from project root: ./bin/build.cmd
+rem Run from project root: .\bin\build.cmd
 @echo off
 cls
 
@@ -12,3 +12,5 @@ javac -d ..\..\app\ InputProvider.java ConsoleInputProvider.java
 
 cd ..\
 javac -d ..\app\ --class-path ..\app\ IssueTrackerInputProvider.java IssueTracker.java
+
+cd ..\
